@@ -1,18 +1,18 @@
 const userModel = require("../models/user")
 const bcrypt = require("bcrypt")
-const generatetoken= require("../utils/generateToken")
+const generatetoken = require("../utils/generateToken")
 
-module.exports.Register= async (req, res ) => {
+module.exports.Register = async (req, res) => {
     try {
-        let {name, email, password , contact}= req.body
-        if(!name || !email || !password || !contact){
-            return res.json({
-                message: "all feild are required"
+        let { name, email, password, contact } = req.body
+        if (!name || !email || !password || !contact) {
+            return res.status(400).json({ // Bad Request
+                message: "all fields are required"
             })
         }
-        let user = await userModel.findOne({email})
-        if(user){
-            return res.json({
+        let user = await userModel.findOne({ email })
+        if (user) {
+            return res.status(409).json({ // Conflict
                 message: "user already exists"
             })
         }
@@ -24,54 +24,53 @@ module.exports.Register= async (req, res ) => {
             contact
         })
         let token = generatetoken(createdUser)
-        res.cookie("token", token,{
+        res.cookie("token", token, {
             httpOnly: true,
             secure: false,
             sameSite: "lax",
             maxAge: 7 * 24 * 60 * 60 * 1000
         })
-        return res.json({
-            message: "user created Sucesfully",
+        return res.status(201).json({ // Created
+            message: "user created Successfully",
             user: createdUser
         })
     } catch (error) {
-        return res.json({
+        return res.status(500).json({ // Internal Server Error
             message: error.message
         })
     }
 }
 
-module.exports.login= async(req, res) => {
+module.exports.login = async (req, res) => {
     try {
-        let {email, password}= req.body
-        if(!email || !password) return res.json({message: "all field are required"})
-        let existinguser = await userModel.findOne({email})
-        if(!existinguser) return res.json({message: "email or password is incorrect"})
+        let { email, password } = req.body
+        if (!email || !password) return res.status(400).json({ message: "all fields are required" }) // Bad Request
         
-        await bcrypt.compare(password, existinguser.password, (result) => {
-            if(!result) return res.json({message: "email or password is incorrect"})
-        })
+        let existinguser = await userModel.findOne({ email })
+        if (!existinguser) return res.status(401).json({ message: "email or password is incorrect" }) // Unauthorized
+        
+        let passwordmatch = await bcrypt.compare(password, existinguser.password)
+        if (!passwordmatch) return res.status(401).json({ message: "email or password is incorrect" }) // Unauthorized
+
         let token = generatetoken(existinguser)
-        res.cookie("token", token,{
+        res.cookie("token", token, {
             httpOnly: true,
-            secure: true,
+            secure: false, // Changed to false for standard localhost HTTP testing
             sameSite: "lax",
             maxAge: 7 * 24 * 60 * 60 * 1000
         })
-        return res.json({
-            message: "login Sucesfully",
+        return res.status(200).json({ // OK
+            message: "login Successfully",
             user: existinguser
         })
     } catch (error) {
-        return res.json({
+        return res.status(500).json({ // Internal Server Error
             message: error.message
         })
     }
 }
 
-module.exports.logout= (req, res ) => {
+module.exports.logout = (req, res) => {
     res.clearCookie("token")
-    return res.json({message: "logout Sucesfully"})
+    return res.status(200).json({ message: "logout Successfully" }) // OK
 }
-
-
