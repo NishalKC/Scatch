@@ -21,6 +21,15 @@ const productsSchema =  mongoose.Schema({
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "user"
+    },
+    image:{
+        type: String,
+        default: ""
+    },
+    category:{
+        type: String,
+        required: true,
+        trim: true
     }
 },{timestamps: true})
 

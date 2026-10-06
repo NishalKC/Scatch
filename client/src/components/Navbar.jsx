@@ -1,10 +1,9 @@
 import { Bell, Heart, Search, ShoppingCart } from "lucide-react";
 import avatar from "../assets/Nishal.jpg"
-const Navbar = () => {
+const Navbar = ({user}) => {
   return (
     <div className="px-5 py-3 border-b border-slate-100">
       <nav className="flex flex-row items-center justify-between gap-8 max-w-7xl mx-auto">
-        {/* Logo */}
         <h1 className="text-xl md:text-3xl font-bold text-blue-500 tracking-tight">Scatch</h1>
 
         <div className="flex flex-1 max-w-3xl border border-slate-200 rounded-md overflow-hidden focus-within:ring-2 focus-within:ring-blue-500">
@@ -23,7 +22,7 @@ const Navbar = () => {
           <a href="#" className="hover:text-blue-500 transition-colors"><Bell/></a>
           <div className="flex gap-3 align-middle">
             <img src={avatar} alt=""  className="h-10 w-10 rounded-3xl"/>
-            <h1 className="text-[15px] align-middle py-1.5">Nishal KC </h1>
+            <h1 className="text-[15px] align-middle py-1.5">{user?.name} </h1>
           </div>
         </div>
       </nav>
