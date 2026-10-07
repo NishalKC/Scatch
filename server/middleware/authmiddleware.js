@@ -6,7 +6,6 @@ const isloggined = async (req, res , next)=>{
         let token = req.cookies.token
         if(!token || token ==="") return res.status(401).json({message: "You must logn first"})
         let encode = jwt.verify(token , process.env.JWT_SCERET)
-        console.log(encode)
         req.user= await userModel.findOne({_id: encode.id}).select("-password");
         next()
     }catch(error){

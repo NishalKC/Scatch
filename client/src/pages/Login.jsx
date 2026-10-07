@@ -32,15 +32,12 @@ const Login = () => {
   return (
     <div className="min-h-screen w-full flex items-center justify-center bg-[#F7FAFE] px-4 py-12">
       <div className="w-full max-w-md bg-white rounded-2xl border border-slate-100 shadow-sm p-8 flex flex-col gap-6">
-        
-        {/* Header Block */}
         <div className="flex flex-col gap-2 text-center">
           <h1 className="text-3xl font-extrabold text-blue-500 tracking-tight">Scatch</h1>
           <h2 className="text-xl font-bold text-slate-800">Welcome Back</h2>
           <p className="text-sm text-slate-400">Enter your details to access your account</p>
         </div>
 
-        {/* 3. Conditional Error Header Alert Box */}
         {error && (
           <div className="bg-red-50 border border-red-200 rounded-xl p-4 transition-all animate-in fade-in duration-200">
             <p className=" font-medium text-red-500 text-[15px] leading-relaxed">
@@ -70,7 +67,6 @@ const Login = () => {
             </div>
           </div>
 
-          {/* Password Input */}
           <div className="flex flex-col gap-1.5">
             <div className="flex justify-between items-center">
               <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
@@ -102,7 +98,6 @@ const Login = () => {
             </div>
           </div>
 
-          {/* Remember Me Checkbox */}
           <div className="flex items-center gap-2 mt-1">
             <input
               type="checkbox"
@@ -114,7 +109,6 @@ const Login = () => {
             </label>
           </div>
 
-          {/* Submit Button */}
           <button
             type="submit"
             className="w-full mt-2 bg-blue-500 hover:bg-blue-600 text-white py-2.5 rounded-xl font-semibold flex items-center justify-center gap-2 transition-colors group shadow-sm shadow-blue-500/10 text-sm"
