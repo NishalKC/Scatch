@@ -21,6 +21,10 @@ const userSchema= mongoose.Schema({
         type: String,
         default: ""
     },
+    sales: {
+        type: Number,
+        defualt: 0
+    },
     contact: {
         type: Number,
         required: true,

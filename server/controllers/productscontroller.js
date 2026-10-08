@@ -32,7 +32,7 @@ module.exports.createProduct = async (req, res ) => {
 
 module.exports.Getallproducts= async (req, res )=>{
     try{
-        let products = await productModel.find().populate("owner")
+        let products = await productModel.find().populate("owner").sort({createdAt: -1})
         return res.status(200).json(products)
     }catch(error){
         return res.status(500).json({message: error.message})

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 import {BrowserRouter, Routes, Route} from "react-router-dom"
 import Navbar from "./components/Navbar"
 import Home from "./pages/Home"
@@ -7,10 +8,13 @@ import Login from "./pages/Login"
 import Register from "./pages/Register"
 import api from "./services/Api"
 import { useEffect, useState } from "react"
+import Shop from "./pages/Shop"
+import Profile from "./pages/Profile"
 
 const App = () => {
   const [User, setUser] = useState(null)
-  const [CurrentRoute, setCurrentRoute] = useState("home")
+  const [Products, setProducts] = useState(null)
+
   const loadUser = async () => {
     try {
       let res = await api.get("users/getme")
@@ -23,9 +27,22 @@ const App = () => {
       
     }
   }
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+  const loadProducts = async ()=>{
+    try{
+      let res = await api.get("products/getall")
+      console.log(res.data);
+      setProducts(res.data)
+      
+    }catch(error){
+      console.log(error?.res?.message)
+    }
+  }
+  useEffect(() => { 
     loadUser()
+  },[]
+  )
+  useEffect(() => {
+    loadProducts() 
   },[]
   )
   
@@ -33,9 +50,11 @@ const App = () => {
     <BrowserRouter>
       <Navbar user={User}/>
       <Routes>
-        <Route path="/" element={<Home route={CurrentRoute} setroute={setCurrentRoute}/>}/>
+        <Route path="/" element={<Home products={Products}/>}/>
         <Route path="/login" element={<Login/>}/>
         <Route path="/register" element={<Register/>}/>
+        <Route path="/Shop" element={<Shop products={Products} user={User} />}/>
+        <Route path="/profile" element={<Profile  user={User}/>}/>
       </Routes>
     </BrowserRouter>
   )
