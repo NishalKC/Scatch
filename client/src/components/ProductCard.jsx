@@ -1,8 +1,9 @@
 import { Heart, ShoppingCart } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
-const ProjectCard = ({product}) => {
+const ProductCard = ({product}) => {
   return (
-    <div key={product.id} className="bg-white rounded-xl border border-slate-100 overflow-hidden flex flex-col group relative hover:shadow-md transition-shadow md:h-88 md:w-55 w-35">
+    <Link to={`/products/${product._id}`} key={product.id} className="bg-white rounded-xl border border-slate-100 overflow-hidden flex flex-col group relative hover:shadow-md transition-shadow md:h-88 md:w-55 w-35">
                 <div className="aspect-square bg-slate-50 flex items-center justify-center relative p-4 h-[50%">
                   {product.discount >0&&(
                     <span className="absolute top-3 left-3 bg-blue-500 text-white text-[10px] font-bold px-2 py-0.5 rounded">
@@ -27,8 +28,8 @@ const ProjectCard = ({product}) => {
                     </button>
                   </div>
                 </div>
-              </div>
+              </Link>
   )
 }
 
-export default ProjectCard
+export default ProductCard

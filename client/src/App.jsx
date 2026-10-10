@@ -11,6 +11,7 @@ import { useEffect, useState } from "react"
 import Shop from "./pages/Shop"
 import Profile from "./pages/Profile"
 import CreateProducts from "./pages/CreateProducts"
+import ProductDetails from "./pages/ProductDetails"
 
 const App = () => {
   const [User, setUser] = useState(null)
@@ -56,6 +57,7 @@ const App = () => {
         <Route path="/Shop" element={<Shop products={Products} user={User} />}/>
         <Route path="/profile" element={<Profile  user={User}/>}/>
         <Route path="/create-products" element={<CreateProducts setProducts={setProducts}/>}/>
+        <Route path="/products/:id" element={<ProductDetails Products={Products}/>} />
       </Routes>
     </BrowserRouter>
   )

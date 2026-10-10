@@ -10,7 +10,7 @@ const Hero = ({products}) => {
     { name: "Home & Living", count: "1.8k+ Products", bg: "bg-amber-50 text-amber-600" },
     { name: "Sports", count: "950+ Products", bg: "bg-emerald-50 text-emerald-600" },
   ];
-  const MostExp = products?.toSorted((a, b) => b.price - a.price).slice(0, 3-1)
+  const MostExp = products?.toSorted((a, b) => b.price - a.price).slice(0, 3)
  
   return (
     <div className="flex-1 min-h-screen px-4 md:px-8 py-8 bg-[#F7FAFE] flex flex-col gap-10 overflow-y-auto">
@@ -69,7 +69,7 @@ const Hero = ({products}) => {
 
           <div className="flex flex-col gap-4 flex-1">
             {MostExp?.map((product) => (
-              <div key={product.id} className="bg-white p-4 rounded-xl border border-slate-100 flex gap-4 items-center hover:shadow-md transition-shadow group cursor-pointer">
+              <Link to={`/products/${product._id}`} key={product.id} className="bg-white p-4 rounded-xl border border-slate-100 flex gap-4 items-center hover:shadow-md transition-shadow group cursor-pointer">
                 <div className="w-20 h-20 bg-slate-50 rounded-lg shrink-0 flex items-center justify-center text-[10px] text-slate-300 font-medium">
                   <img src={product.image} alt="" />
                 </div>
@@ -84,7 +84,7 @@ const Hero = ({products}) => {
                   </div>
                   <span className="text-sm font-bold text-slate-900 mt-2">${product.price}</span>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
