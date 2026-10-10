@@ -4,7 +4,7 @@ import { Mail, Phone } from "lucide-react"
 
 const Profile = ({ user }) => {
   return (
-    <div className="flex p-6 gap-8 w-full min-h-screen bg-zinc-50">
+    <div className="flex md:px-3 gap-8 w-full min-h-screen bg-zinc-50">
       <SideBar />
       
       <div className="flex-1 max-w-xl bg-white border border-zinc-200 rounded-2xl p-6 h-fit space-y-6">

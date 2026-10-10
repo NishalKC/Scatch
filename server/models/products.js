@@ -30,6 +30,10 @@ const productsSchema =  mongoose.Schema({
         type: String,
         required: true,
         trim: true
+    },
+    stock: {
+        type: Number,
+        defualt: 1,
     }
 },{timestamps: true})
 

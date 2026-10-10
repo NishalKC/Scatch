@@ -10,6 +10,7 @@ import api from "./services/Api"
 import { useEffect, useState } from "react"
 import Shop from "./pages/Shop"
 import Profile from "./pages/Profile"
+import CreateProducts from "./pages/CreateProducts"
 
 const App = () => {
   const [User, setUser] = useState(null)
@@ -30,8 +31,7 @@ const App = () => {
   const loadProducts = async ()=>{
     try{
       let res = await api.get("products/getall")
-      console.log(res.data);
-      setProducts(res.data)
+      setProducts(res?.data)
       
     }catch(error){
       console.log(error?.res?.message)
@@ -55,6 +55,7 @@ const App = () => {
         <Route path="/register" element={<Register/>}/>
         <Route path="/Shop" element={<Shop products={Products} user={User} />}/>
         <Route path="/profile" element={<Profile  user={User}/>}/>
+        <Route path="/create-products" element={<CreateProducts setProducts={setProducts}/>}/>
       </Routes>
     </BrowserRouter>
   )

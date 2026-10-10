@@ -1,5 +1,6 @@
 import { Bell, Heart, Search, ShoppingCart } from "lucide-react";
 import avatar from "../assets/Nishal.jpg"
+import { Link } from "react-router-dom";
 const Navbar = ({user}) => {
   return (
     <div className="px-5 py-3 border-b border-slate-100">
@@ -20,10 +21,10 @@ const Navbar = ({user}) => {
           <a href="#" className="hover:text-blue-500 transition-colors"><Heart/></a>
           <a href="#" className="hover:text-blue-500 transition-colors"><ShoppingCart /></a>
           <a href="#" className="hover:text-blue-500 transition-colors"><Bell/></a>
-          <div className="flex gap-3 align-middle">
+          <Link to={"/profile"} className="flex gap-3 align-middle">
             <img src={avatar} alt=""  className="h-10 w-10 rounded-3xl"/>
             <h1 className="text-[15px] align-middle py-1.5">{user?.name} </h1>
-          </div>
+          </Link>
         </div>
       </nav>
     </div>
