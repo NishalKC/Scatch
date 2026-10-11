@@ -25,10 +25,10 @@ const Hero = ({products}) => {
         <p className="text-blue-100 max-w-md text-sm md:text-base">
           Get up to 50% off on newly arrived electronic accessories and next-gen smart devices.
         </p>
-        <button className="mt-2 bg-white text-blue-600 hover:bg-blue-50 px-5 py-2.5 rounded-xl font-semibold flex items-center gap-2 transition-all group text-sm shadow-md shadow-blue-900/10">
-          <Link to={"/shop"}>Shop Now</Link>
+        <Link to={"/shop/offer"} className="mt-2 bg-white text-blue-600 hover:bg-blue-50 px-5 py-2.5 rounded-xl font-semibold flex items-center gap-2 transition-all group text-sm shadow-md shadow-blue-900/10">
+          <span>Shop Now</span>
           <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-        </button>
+        </Link>
         <div className="absolute right-[-10%] top-[-20%] w-72 h-72 bg-white/10 rounded-full blur-3xl pointer-events-none" />
       </div>
 
@@ -36,12 +36,12 @@ const Hero = ({products}) => {
         <h2 className="text-xl font-bold text-slate-800">Browse Categories</h2>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {categories.map((cat, i) => (
-            <div key={i} className="bg-white p-5 rounded-xl border border-slate-100 hover:shadow-md transition-shadow cursor-pointer flex flex-col gap-1">
+            <Link to={`/${cat.name}`} key={i} className="bg-white p-5 rounded-xl border border-slate-100 hover:shadow-md transition-shadow cursor-pointer flex flex-col gap-1">
               <span className={`w-fit px-2.5 py-1 rounded-md text-xs font-bold ${cat.bg}`}>
                 {cat.name}
               </span>
               <span className="text-xs text-slate-400 font-medium mt-2">{cat.count}</span>
-            </div>
+            </Link>
           ))}
         </div>
       </div>

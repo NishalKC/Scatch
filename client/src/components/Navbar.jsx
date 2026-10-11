@@ -1,11 +1,11 @@
-import { Bell, Heart, Search, ShoppingCart } from "lucide-react";
+import { Bell, Heart, Search, ShoppingBag, ShoppingCart } from "lucide-react";
 import avatar from "../assets/Nishal.jpg"
 import { Link } from "react-router-dom";
 const Navbar = ({user}) => {
   return (
     <div className="px-5 py-3 border-b border-slate-100">
       <nav className="flex flex-row items-center justify-between gap-8 max-w-7xl mx-auto">
-        <h1 className="text-xl md:text-3xl font-bold text-blue-500 tracking-tight">Scatch</h1>
+        <h1 className="text-xl md:text-3xl font-bold text-blue-500 tracking-tight flex gap-2"><ShoppingBag  className="mt-1.5"/>Scatch</h1>
 
         <div className="flex flex-1 max-w-3xl border border-slate-200 rounded-md overflow-hidden focus-within:ring-2 focus-within:ring-blue-500">
           <input

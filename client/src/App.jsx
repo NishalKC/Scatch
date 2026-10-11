@@ -12,6 +12,8 @@ import Shop from "./pages/Shop"
 import Profile from "./pages/Profile"
 import CreateProducts from "./pages/CreateProducts"
 import ProductDetails from "./pages/ProductDetails"
+import ProductsBYCategory from "./pages/ProductsBYCategory"
+import OfferProducts from "./pages/OfferProducts"
 
 const App = () => {
   const [User, setUser] = useState(null)
@@ -58,6 +60,8 @@ const App = () => {
         <Route path="/profile" element={<Profile  user={User}/>}/>
         <Route path="/create-products" element={<CreateProducts setProducts={setProducts}/>}/>
         <Route path="/products/:id" element={<ProductDetails Products={Products}/>} />
+        <Route path="/:category" element={<ProductsBYCategory Products={Products}/>} />
+        <Route path="/shop/offer" element={<OfferProducts Products={Products}/>} />
       </Routes>
     </BrowserRouter>
   )

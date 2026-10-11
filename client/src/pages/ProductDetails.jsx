@@ -38,12 +38,12 @@ const ProductDetails = ({Products}) => {
         </div>
     )
   return (
-    <div className='px-3  flex gap-5'>
+    <div className='md:px-3  flex gap-5'>
         <SideBar/>
         <div className='flex flex-col gap-10 w-full'>
             <div className='flex flex-col md:flex-row gap-5 w-full mt-10 px-5 md:py-3 '>
             <div className='md:w-3/4 md:h-109 '>
-                <img src={Product?.image} alt="" className='md:h-full md:w-full rounded-2xl ' />
+                <img src={Product?.image} alt={Product?.name} className='md:h-full md:w-full rounded-2xl ' />
             </div>
             <div className='flex flex-col gap-4 md:pl-19 py-1 w-full'>
                 <h1 className='text-4xl capitalize'>{Product?.name}</h1>
@@ -61,18 +61,18 @@ const ProductDetails = ({Products}) => {
                         <h1 className='text-2xl text-blue-400'>{Product?.discount}% OFF</h1>
                     )}
                 </div>
-                <div className='flex gap-5 md:text-[15px] w-full'>
-                    <button className='capitalize text-white bg-blue-500 px-3 py-1.5md:px-5 md:py-1.5 rounded-md border border-blue-400 hover:bg-transparent flex  hover:text-blue-500 transition-colors gap-2'><ShoppingCart size={19+3} className='mt-0.50'/>Add to cart</button>
-                    <button className='capitalize bg-transparent px-3 py-1.5 md:px-5 md:py-2 rounded-md border text-blue-500 hover:bg-blue-400 hover:text-white transition-colors flex gap-2 '><Heart size={19+3}/>  Wishlist</button>
+                <div className='flex flex-wrap gap-3 md:gap-5 md:text-[15px] w-full'>
+                    <button className='capitalize text-white bg-blue-500 px-3 py-1.5 md:px-5 md:py-1.5 rounded-md border border-blue-400 hover:bg-transparent flex  hover:text-blue-500 transition-colors gap-0.5 md:gap-2'><ShoppingCart size={19+3} className='mt-0.50'/>Add to cart</button>
+                    <button className='capitalize bg-transparent px-3 py-1.5 md:px-5 md:py-2 rounded-md border text-blue-500 hover:bg-blue-400 hover:text-white transition-colors flex gap-0.5 md:gap-2 '><Heart size={19+3}/>  Wishlist</button>
                 </div>
             </div>
             </div>
-            <div className='flex flex-col gap-4 px-3 py-1'>
-                <div className='flex justify-between px-5 pr-15'>
-                <h1 className='text-2xl text-zinc-800'>Products related to </h1>
+            <div className='flex flex-col gap-4 md:px-3 py-1'>
+                <div className='flex  flex-col md:flex-row justify-between px-5 pr-15 '>
+                <h1 className=' text-xl md:text-2xl text-zinc-800'>Products related to </h1>
                 <h1 className='text-blue-500 hover:underline transition-colors cursor-pointer pr-10'>View more</h1>
                 </div>
-                <div className='flex gap-10 mb-10'>
+                <div className='flex flex-row flex-wrap md:gap-10 mb-10'>
                     {RelatedProducts?.map((product) => (
                         <ProductCard key={product._id} product={product}/>
                     )

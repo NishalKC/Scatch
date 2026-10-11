@@ -5,7 +5,7 @@ const SideBar = () => {
   const location = useLocation()
   
   return (
-    <div className="w-16 sm:w-60  min-h-full px-2 sm:px-4 py-6 border-r border-slate-100 flex flex-col gap-10 bg-white transition-all duration-300">
+    <div className="w-16 sm:min-w-60  min-h-full px-2 sm:px-4 py-6 border-r border-slate-100 flex flex-col gap-10 bg-white transition-all duration-300">
       <div className="flex flex-col gap-6">
         <div className="flex flex-col gap-1">
           {location.pathname=== "/" ?(
