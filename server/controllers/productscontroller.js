@@ -33,7 +33,7 @@ module.exports.createProduct = async (req, res ) => {
 
 module.exports.Getallproducts= async (req, res )=>{
     try{
-        let products = await productModel.find().populate("owner").sort({createdAt: -1})
+        let products = await productModel.find().populate("owner").sort({updatedAt: -1})
         return res.status(200).json(products)
     }catch(error){
         return res.status(500).json({message: error.message})
@@ -62,3 +62,43 @@ module.exports.GetproductsByCategory= async(req, res ) => {
         return res.status(500).json({message: error.message})
     }
 }
+
+module.exports.Addtocart = async (req, res) => {
+    try {
+        let { id } = req.params;
+
+        let Product = await productModel.findOne({ _id: id });
+        if (!Product) {
+            return res.status(404).json({ message: "Product not found" });
+        }
+
+        const userId = req.user._id.toString();
+        const ownerId = Product.owner._id ? Product.owner._id.toString() : Product.owner.toString();
+
+        if (userId === ownerId) {
+            return res.status(403).json({ message: "Own product can't add to cart" });
+        }
+
+        let user = await userModel.findOne({ _id: req.user._id });
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        const productAlreadyInCart = user.carts.some(cartItemId => cartItemId.toString() === Product._id.toString());
+        if (productAlreadyInCart) {
+            return res.status(400).json({ message: "Product already in cart" });
+        }
+
+        user.carts.push(Product._id);
+        await user.save();
+
+        return res.status(200).json({
+            message: "products is added to cart",
+            user
+        });
+
+    } catch (error) {
+        return res.status(500).json({ message: error.message });
+    }
+};
+
+

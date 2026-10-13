@@ -7,12 +7,9 @@ const Shop = ({products,user}) => {
         
   return (
     <div className="flex md:px-3">
-        <div className="w-1/3">
-        <SideBar />
-        </div>
         <div className="flex flex-col  gap-5 md:gap-10 py-3 items-center">
             <h1 className="text-2xl md:text-4xl text-blue-400 px-5">All Products</h1>
-            <ProductLoader products={products}/>
+            <ProductLoader products={products} user={user}/>
         </div>
     </div>
   )

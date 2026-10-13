@@ -3,7 +3,7 @@ import { Mail, Lock, Eye, EyeOff, ArrowRight } from "lucide-react";
 import api from "../services/Api";
 import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Login = ({setIslogin, setUser}) => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -12,15 +12,18 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(""); // Clear previous errors on a new submit attempt
+    setError(""); 
     
     try {
         let res = await api.post("users/login", {
             email: email,
             password: password
-        });
-        console.log("data", res?.data);
-        navigate("/")
+        })
+        if(res?.data?.user){
+          setIslogin(true)
+          setUser(res?.data?.user)
+          navigate("/")
+        }
         
     } catch (error) {
         const serverMessage = error.response?.data?.message || error.message || "Something went wrong";

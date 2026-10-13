@@ -1,13 +1,19 @@
 import ProductCard from './ProductCard'
 
-const ProductLoader = ({products}) => {
+const ProductLoader = ({products, setErrormessage, user}) => {
   return (
-    <div className="flex fles-row flex-wrap gap-3 w-full md:gap-8 px-1 md:px-10">
-                {products?.map((product) => (
-                    <ProductCard key={product._id} product={product}/>
+    <div className="flex fles-row flex-wrap gap-3 w-full md:gap-5 px-1 md:px-8">
+        {products?.length >0 ? (
+            <>
+            {products?.map((product) => (
+                <ProductCard key={product._id} user={user} product={product} setErrormessage={setErrormessage} />
                 )
-                )}
-            </div>
+            )}
+        </>
+        ):(
+            <h1 className=' text-[16px] text-zinc-600 px-5 '>Products not available  </h1>
+        )}
+        </div>
   )
 }
 

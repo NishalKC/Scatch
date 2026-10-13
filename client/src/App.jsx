@@ -14,16 +14,18 @@ import CreateProducts from "./pages/CreateProducts"
 import ProductDetails from "./pages/ProductDetails"
 import ProductsBYCategory from "./pages/ProductsBYCategory"
 import OfferProducts from "./pages/OfferProducts"
+import SideBar from "./components/SideBar"
 
 const App = () => {
   const [User, setUser] = useState(null)
   const [Products, setProducts] = useState(null)
+  const [Islogin, setIslogin] = useState(false)
 
   const loadUser = async () => {
     try {
       let res = await api.get("users/getme")
-      let user = res?.data.user
-      console.log(user);
+      let user = res?.data?.user
+      if(user) setIslogin(true)
       setUser(user)
       
     } catch (error) {
@@ -35,6 +37,7 @@ const App = () => {
     try{
       let res = await api.get("products/getall")
       setProducts(res?.data)
+      console.log(res?.data);
       
     }catch(error){
       console.log(error?.res?.message)
@@ -51,11 +54,13 @@ const App = () => {
   
   return (
     <BrowserRouter>
-      <Navbar user={User}/>
+      <Navbar user={User} Islogin={Islogin}/>
+      <div className="flex px-3">
+      <SideBar islogin={Islogin} setIslogin={setIslogin} />
       <Routes>
         <Route path="/" element={<Home products={Products}/>}/>
-        <Route path="/login" element={<Login/>}/>
-        <Route path="/register" element={<Register/>}/>
+        <Route path="/login" element={<Login setIslogin={setIslogin} setUser={setUser}/>}/>
+        <Route path="/register" element={<Register setUser={setUser} setislogin={setIslogin} />}/>
         <Route path="/Shop" element={<Shop products={Products} user={User} />}/>
         <Route path="/profile" element={<Profile  user={User}/>}/>
         <Route path="/create-products" element={<CreateProducts setProducts={setProducts}/>}/>
@@ -63,6 +68,7 @@ const App = () => {
         <Route path="/:category" element={<ProductsBYCategory Products={Products}/>} />
         <Route path="/shop/offer" element={<OfferProducts Products={Products}/>} />
       </Routes>
+      </div>
     </BrowserRouter>
   )
 }

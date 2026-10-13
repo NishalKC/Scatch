@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useParams } from 'react-router-dom'
-import SideBar from '../components/SideBar'
 import api from '../services/Api';
 import { useEffect, useState } from 'react';
 import { Heart, ShoppingCart } from 'lucide-react';
@@ -39,7 +38,6 @@ const ProductDetails = ({Products}) => {
     )
   return (
     <div className='md:px-3  flex gap-5'>
-        <SideBar/>
         <div className='flex flex-col gap-10 w-full'>
             <div className='flex flex-col md:flex-row gap-5 w-full mt-10 px-5 md:py-3 '>
             <div className='md:w-3/4 md:h-109 '>

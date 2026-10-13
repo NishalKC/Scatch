@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 const Hero = ({products}) => {
   const first3products= products?.slice(0, 3)
+  
   const categories = [
     { name: "Electronics", count: "2.4k+ Products", bg: "bg-blue-50 text-blue-600" },
     { name: "Fashion", count: "5k+ Products", bg: "bg-purple-50 text-purple-600" },
@@ -13,7 +14,7 @@ const Hero = ({products}) => {
   const MostExp = products?.toSorted((a, b) => b.price - a.price).slice(0, 3)
  
   return (
-    <div className="flex-1 min-h-screen px-4 md:px-8 py-8 bg-[#F7FAFE] flex flex-col gap-10 overflow-y-auto">
+    <div className="flex-1 min-h-screen px-4 md:px-8 py-8 bg-[#F7FAFE] flex flex-col gap-10 overflow-y-auto w-full">
       
       <div className="w-full bg-linear-to-r from-blue-600 to-indigo-600 rounded-2xl p-6 md:p-10 text-white flex flex-col justify-center items-start gap-4 relative overflow-hidden shadow-sm">
         <span className="bg-white/20 px-3 py-1 rounded-full text-xs font-semibold tracking-wide uppercase">

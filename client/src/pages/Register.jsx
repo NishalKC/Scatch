@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { User, Mail, Lock, Phone, Eye, EyeOff, ArrowRight } from "lucide-react";
 import api from "../services/Api";
+import { useNavigate } from "react-router-dom";
 
-const Register = () => {
+const Register = ({setislogin,  setUser}) => {
   const [showPassword, setShowPassword] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -10,6 +11,7 @@ const Register = () => {
   const [contact, setContact] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,17 +26,19 @@ const Register = () => {
         contact,
       };
 
-      // Calls the /users endpoint mapped in your Express setup
       let res = await api.post("users/register", registerData);
-      
+    
       setSuccess(res?.data?.message || "Account created successfully!");
-      // Clear form inputs on success
       setName("");
       setEmail("");
       setPassword("");
       setContact("");
+      if(res?.data?.user){
+        setislogin(true)
+        setUser(res?.data?.user)
+        navigate("/")
+      }
     } catch (err) {
-      // Axios routes HTTP errors (400, 409, 500) straight to this catch block
       const serverMessage = err.response?.data?.message || err.message || "Something went wrong";
       setError(serverMessage);
     }

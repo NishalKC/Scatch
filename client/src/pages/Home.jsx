@@ -1,12 +1,8 @@
 import Hero from "../components/Hero"
-import SideBar from "../components/SideBar"
 
 const Home = ({ products}) => {
   return (
-    <div className="flex md:px-3 bg-[#F7FAFE]">
-        <SideBar />
-        <Hero products={products}/>
-    </div>
+    <Hero products={products}/>
   )
 }
 
