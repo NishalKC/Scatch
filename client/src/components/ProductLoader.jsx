@@ -2,7 +2,7 @@ import ProductCard from './ProductCard'
 
 const ProductLoader = ({products, setErrormessage, user, wishlist, setwishlist}) => {
   return (
-    <div className="flex fles-row flex-wrap gap-3 w-full md:gap-5 px-1 md:px-8">
+    <div className="flex fles-row flex-wrap gap-5 w-full md:gap-5 px-1 md:px-5">
         {products?.length >0 ? (
             <>
             {products?.map((product) => (
@@ -11,7 +11,7 @@ const ProductLoader = ({products, setErrormessage, user, wishlist, setwishlist})
             )}
         </>
         ):(
-            <h1 className=' text-[16px] text-zinc-600 px-5 '>Products not available  </h1>
+            <h1 className=' text-[16px] text-zinc-600 px-5 fixed min-w-full'>Products not available  </h1>
         )}
         </div>
   )

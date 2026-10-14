@@ -3,7 +3,7 @@ import { ArrowLeft } from 'lucide-react'
 import ProductLoader from '../components/ProductLoader'
 import { useState, useEffect } from 'react'
 
-const OfferProducts = ({ Products }) => {
+const OfferProducts = ({ Products, wishlist, setwishlist }) => {
     const [Errormessage, setErrormessage] = useState(null)
     const OfferProducts = Products?.filter((p) => p.discount > 0)
 
@@ -35,7 +35,7 @@ const OfferProducts = ({ Products }) => {
                 )}
                 
                 <h1 className='text-4xl text-blue-400 px-4 mb-3'>Offers</h1>
-                <ProductLoader products={OfferProducts} setErrormessage={setErrormessage} />
+                <ProductLoader products={OfferProducts} setErrormessage={setErrormessage} wishlist={wishlist}  setwishlist={setwishlist}/>
             </div>
         </div>
     )

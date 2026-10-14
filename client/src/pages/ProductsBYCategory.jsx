@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router-dom'
 import ProductLoader from '../components/ProductLoader'
 import {  ArrowLeft } from 'lucide-react'
 
-const ProductsBYCategory = () => {
+const ProductsBYCategory = ({wishlist,  setwishlist}) => {
     const [Products, setProducts] = useState(null)
     const{category} = useParams()
 
@@ -30,7 +30,7 @@ const ProductsBYCategory = () => {
         <div className='flex flex-col gap-5 py-5 '>
                 <Link to={"/"} className=' flex gap-1 text-red-500 hover:underline transition-shadow'><ArrowLeft size={16} className='mt-1'/>Go Back</Link>
                 <h1 className='px-3 text-3xl text-blue-500'>{category} Products</h1>
-                <ProductLoader products={Products}/>
+                <ProductLoader products={Products} wishlist={wishlist} setwishlist={setwishlist}/>
         </div>
     </div>
   )
