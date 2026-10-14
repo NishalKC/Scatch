@@ -1,8 +1,8 @@
 import Hero from "../components/Hero"
 
-const Home = ({ products}) => {
+const Home = ({ products,wishlist}) => {
   return (
-    <Hero products={products}/>
+    <Hero products={products} wishlist={wishlist} />
   )
 }
 

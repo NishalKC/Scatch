@@ -101,4 +101,41 @@ module.exports.Addtocart = async (req, res) => {
     }
 };
 
+module.exports.AddtoWishlist= async (req, res)=>{
+    try {
+        let {id}= req.params
+        let product = await productModel.findOne({_id: id})
+        let user = await userModel.findOne({_id: req.user._id})
+        if(!product) return res.status(404).json({message: "Product not found"})
+        
+        let isowner = product.owner.equals(user._id)
+        
+        if(isowner) res.status(403).json({message: "You cannot wishlist your own product"})
+
+        let isWishlisted = user.wishlist.includes(product._id);
+        
+        if (isWishlisted) {
+            user.wishlist = user.wishlist.filter(item => !item.equals(product._id));
+            await user.save();
+            
+            return res.status(200).json({ 
+                message: "Removed from wishlist successfully", 
+                product ,
+                user
+            });
+        } else {
+            user.wishlist.push(product._id);
+            await user.save(); 
+            
+            return res.status(200).json({ 
+                message: "Added to wishlist successfully", 
+                product ,
+                user
+            });
+        }
+
+    } catch (error) {
+        return res.status(500).json({message: error.message})
+    }
+}
 

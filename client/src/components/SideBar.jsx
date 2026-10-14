@@ -85,10 +85,18 @@ const SideBar = ({islogin, setIslogin}) => {
             <Package size={18} className="shrink-0" />
             <span className="hidden sm:inline">Orders</span>
           </button>
-          <button className="flex items-center justify-center sm:justify-start gap-3 px-3 py-2.5 rounded-lg text-left text-slate-700 hover:bg-slate-50 hover:text-blue-500 font-medium transition-colors w-full">
+          {location.pathname=== "/wishlist" ?(
+            <Link to={"/wishlist"} className="flex items-center justify-center sm:justify-start gap-3 px-3 py-2.5 rounded-lg text-left bg-slate-50 text-blue-500 font-medium transition-colors w-full">
             <Heart size={18} className="shrink-0" />
             <span className="hidden sm:inline">Wishlist</span>
-          </button>
+          </Link>
+          ):(
+            <Link to={"/wishlist"} className="flex items-center justify-center sm:justify-start gap-3 px-3 py-2.5 rounded-lg text-left text-slate-700 hover:bg-slate-50 hover:text-blue-500 font-medium transition-colors w-full">
+            <Heart size={18} className="shrink-0" />
+            <span className="hidden sm:inline">Wishlist</span>
+          </Link>
+          )}
+          
           <button onClick={Logout} className="flex items-center justify-center sm:justify-start gap-3 px-3 py-2.5 rounded-lg text-left text-red-600 hover:bg-red-50 font-medium transition-colors w-full mt-2">
             <LogOut size={18} className="shrink-0" />
             <span className="hidden sm:inline">Logout</span>

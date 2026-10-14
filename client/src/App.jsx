@@ -15,11 +15,13 @@ import ProductDetails from "./pages/ProductDetails"
 import ProductsBYCategory from "./pages/ProductsBYCategory"
 import OfferProducts from "./pages/OfferProducts"
 import SideBar from "./components/SideBar"
+import WishlistedProducts from "./pages/WishlistedProducts"
 
 const App = () => {
   const [User, setUser] = useState(null)
   const [Products, setProducts] = useState(null)
   const [Islogin, setIslogin] = useState(false)
+  const [Wishlist , setWishlist]= useState([])
 
   const loadUser = async () => {
     try {
@@ -27,7 +29,7 @@ const App = () => {
       let user = res?.data?.user
       if(user) setIslogin(true)
       setUser(user)
-      
+      setWishlist(user?.wishlist)
     } catch (error) {
       console.log(error?.res?.message);
       
@@ -43,6 +45,9 @@ const App = () => {
       console.log(error?.res?.message)
     }
   }
+
+  
+  
   useEffect(() => { 
     loadUser()
   },[]
@@ -58,15 +63,16 @@ const App = () => {
       <div className="flex px-3">
       <SideBar islogin={Islogin} setIslogin={setIslogin} />
       <Routes>
-        <Route path="/" element={<Home products={Products}/>}/>
+        <Route path="/" element={<Home products={Products} wishlist={Wishlist}/>}/>
         <Route path="/login" element={<Login setIslogin={setIslogin} setUser={setUser}/>}/>
         <Route path="/register" element={<Register setUser={setUser} setislogin={setIslogin} />}/>
-        <Route path="/Shop" element={<Shop products={Products} user={User} />}/>
+        <Route path="/Shop" element={<Shop products={Products} user={User} wishlist={Wishlist} setwishlist={setWishlist}/>}/>
         <Route path="/profile" element={<Profile  user={User}/>}/>
         <Route path="/create-products" element={<CreateProducts setProducts={setProducts}/>}/>
-        <Route path="/products/:id" element={<ProductDetails Products={Products}/>} />
+        <Route path="/products/:id" element={<ProductDetails Products={Products} wishlist={Wishlist} setwishlist={setWishlist}/>} />
         <Route path="/:category" element={<ProductsBYCategory Products={Products}/>} />
         <Route path="/shop/offer" element={<OfferProducts Products={Products}/>} />
+        <Route path="/wishlist" element={<WishlistedProducts Wishlist={Wishlist} setwishlist={setWishlist}/>} />
       </Routes>
       </div>
     </BrowserRouter>

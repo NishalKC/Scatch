@@ -2,7 +2,7 @@ import { ArrowRight, Star} from "lucide-react";
 import ProductCard from "./ProductCard";
 import { Link } from "react-router-dom";
 
-const Hero = ({products}) => {
+const Hero = ({products, wishlist}) => {
   const first3products= products?.slice(0, 3)
   
   const categories = [
@@ -57,7 +57,7 @@ const Hero = ({products}) => {
           
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             {first3products?.map((product) => (
-              <ProductCard key={product.id} product={product}/>
+              <ProductCard key={product._id} product={product} wishlist={wishlist}/>
             ))}
           </div>
         </div>
@@ -70,7 +70,7 @@ const Hero = ({products}) => {
 
           <div className="flex flex-col gap-4 flex-1">
             {MostExp?.map((product) => (
-              <Link to={`/products/${product._id}`} key={product.id} className="bg-white p-4 rounded-xl border border-slate-100 flex gap-4 items-center hover:shadow-md transition-shadow group cursor-pointer">
+              <Link to={`/products/${product._id}`} key={product._id} className="bg-white p-4 rounded-xl border border-slate-100 flex gap-4 items-center hover:shadow-md transition-shadow group cursor-pointer">
                 <div className="w-20 h-20 bg-slate-50 rounded-lg shrink-0 flex items-center justify-center text-[10px] text-slate-300 font-medium">
                   <img src={product.image} alt="" />
                 </div>
@@ -89,9 +89,7 @@ const Hero = ({products}) => {
             ))}
           </div>
         </div>
-
       </div>
-
     </div>
   );
 };

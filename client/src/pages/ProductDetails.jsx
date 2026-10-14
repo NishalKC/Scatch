@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { Heart, ShoppingCart } from 'lucide-react';
 import ProductCard from '../components/ProductCard';
 
-const ProductDetails = ({Products}) => {
+const ProductDetails = ({Products, wishlist, setwishlist}) => {
     const [Product, setProduct] = useState(null)
     const [Loading, setLoading] = useState(true)
     const {id} =useParams()
@@ -72,7 +72,7 @@ const ProductDetails = ({Products}) => {
                 </div>
                 <div className='flex flex-row flex-wrap md:gap-10 mb-10'>
                     {RelatedProducts?.map((product) => (
-                        <ProductCard key={product._id} product={product}/>
+                        <ProductCard key={product._id} wishlist={wishlist} product={product} setwishlist={setwishlist}/>
                     )
                     )}
                 </div>
