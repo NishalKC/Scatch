@@ -17,12 +17,14 @@ import OfferProducts from "./pages/OfferProducts"
 import SideBar from "./components/SideBar"
 import WishlistedProducts from "./pages/WishlistedProducts"
 import SearchPage from "./pages/SearchPage"
+import Cart from "./pages/Cart"
 
 const App = () => {
   const [User, setUser] = useState(null)
   const [Products, setProducts] = useState(null)
   const [Islogin, setIslogin] = useState(false)
   const [Wishlist , setWishlist]= useState([])
+  const [Carts, setCarts] = useState([])
   const [Search, setSearch] = useState(null)
 
   const loadUser = async () => {
@@ -32,6 +34,7 @@ const App = () => {
       if(user) setIslogin(true)
       setUser(user)
       setWishlist(user?.wishlist)
+      setCarts(user?.carts)
     } catch (error) {
       console.log(error?.res?.message);
       
@@ -41,7 +44,6 @@ const App = () => {
     try{
       let res = await api.get("products/getall")
       setProducts(res?.data)
-      console.log(res?.data);
       
     }catch(error){
       console.log(error?.res?.message)
@@ -52,23 +54,22 @@ const App = () => {
   
   useEffect(() => { 
     loadUser()
-  },[]
+  },[setWishlist, setCarts]
   )
   useEffect(() => {
     loadProducts() 
   },[]
   )
-  console.log(Search);
   
   return (
     <BrowserRouter>
       <Navbar user={User} Islogin={Islogin} setSearch={setSearch}/>
       <div className="flex px-3">
-      <SideBar islogin={Islogin} setIslogin={setIslogin} />
+      <SideBar islogin={Islogin} setIslogin={setIslogin} setWishlist={setWishlist}/>
       <Routes>
         
         <Route path="/" element={<Home products={Products} wishlist={Wishlist}/>}/>
-        <Route path="/login" element={<Login setIslogin={setIslogin} setUser={setUser}/>}/>
+        <Route path="/login" element={<Login setIslogin={setIslogin} setUser={setUser} setWishlist={setWishlist}/>}/>
         <Route path="/register" element={<Register setUser={setUser} setislogin={setIslogin} />}/>
         <Route path="/search" element={<SearchPage search={Search} products={Products} wishlist={Wishlist} setwishlist={setWishlist}/>}/>
         <Route path="/Shop" element={<Shop products={Products} user={User} wishlist={Wishlist} setwishlist={setWishlist}/>}/>
@@ -78,6 +79,8 @@ const App = () => {
         <Route path="/:category" element={<ProductsBYCategory Products={Products} wishlist={Wishlist}   setwishlist={setWishlist}/>} />
         <Route path="/shop/offer" element={<OfferProducts Products={Products} wishlist={Wishlist} setwishlist={setWishlist}/>} />
         <Route path="/wishlist" element={<WishlistedProducts Wishlist={Wishlist} setwishlist={setWishlist}/>} />
+        <Route path="/cart" element={<Cart Carts={Carts}/>} />
+      
       </Routes>
       </div>
     </BrowserRouter>

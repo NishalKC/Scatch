@@ -107,10 +107,6 @@ module.exports.AddtoWishlist= async (req, res)=>{
         let product = await productModel.findOne({_id: id})
         let user = await userModel.findOne({_id: req.user._id})
         if(!product) return res.status(404).json({message: "Product not found"})
-        
-        let isowner = product.owner.equals(user._id)
-        
-        if(isowner) res.status(403).json({message: "You cannot wishlist your own product"})
 
         let isWishlisted = user.wishlist.includes(product._id);
         

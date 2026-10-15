@@ -1,11 +1,12 @@
 import { Bell, Heart, LogIn, Search, ShoppingBag, ShoppingCart } from "lucide-react";
 import avatar from "../assets/Nishal.jpg";
 import { useRef } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Navbar = ({ user, Islogin, setSearch }) => {
   const navigate = useNavigate();
   const inputRef = useRef(null);
+  const location =useLocation()
 
   const handleSearch = (e) => {
     if (e.target.value.length > 0) {
@@ -48,7 +49,7 @@ const Navbar = ({ user, Islogin, setSearch }) => {
         </div>
         <div className="hidden md:flex items-center gap-6 text-sm font-medium text-slate-600">
           <a href="#" className="hover:text-blue-500 transition-colors"><Heart /></a>
-          <a href="#" className="hover:text-blue-500 transition-colors"><ShoppingCart /></a>
+          <Link to={"/cart"} className={location.pathname ==="/cart"? ("text-blue-500 ") : ("hover:text-blue-500 transition-colors ")} ><ShoppingCart  /></Link>
           <a href="#" className="hover:text-blue-500 transition-colors"><Bell /></a>
           {Islogin ? (
             <Link to={"/profile"} className="flex gap-3 align-middle">

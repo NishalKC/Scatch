@@ -65,7 +65,7 @@ const Hero = ({products, wishlist}) => {
         <div className="flex flex-col gap-4">
           <div className="flex justify-between items-center">
             <h2 className="text-xl font-bold text-slate-800">Most Expensive</h2>
-            <a href="#" className="text-sm font-semibold text-blue-600 hover:underline">View All</a>
+            <Link to={`/shop`} className="text-sm font-semibold text-blue-600 hover:underline">View All</Link>
           </div>
 
           <div className="flex flex-col gap-4 flex-1">

@@ -2,7 +2,7 @@ import { Home, ShoppingBag, PlusCircle, LayoutDashboard, User, Package, Heart, L
 import {Link, useLocation, useNavigate} from "react-router-dom"
 import api from "../services/Api";
 
-const SideBar = ({islogin, setIslogin}) => {
+const SideBar = ({islogin, setIslogin, setWishlist}) => {
   const location = useLocation()
   const  navigation = useNavigate()
 
@@ -12,6 +12,8 @@ const SideBar = ({islogin, setIslogin}) => {
       if(res?.data?.message){
         console.log(res?.data?.message);
         setIslogin(false)
+        setWishlist([])
+        navigation("/login")
       }
     } catch (error) {
       console.log(error.message);

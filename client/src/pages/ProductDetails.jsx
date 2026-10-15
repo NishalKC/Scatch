@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import api from '../services/Api';
 import { useEffect, useState } from 'react';
 import { Heart, ShoppingCart } from 'lucide-react';
@@ -10,14 +10,13 @@ const ProductDetails = ({Products, wishlist, setwishlist}) => {
     const [Loading, setLoading] = useState(true)
     const {id} =useParams()
     const RelatedProducts = Products?.filter((p)=> p?.category == Product?.category & p?._id !== Product?._id).slice(0,4)
-    console.log(RelatedProducts);
+    const iswishlist = wishlist.some(item => item._id === Product?._id)
+    
     
 
     const loadProduct = async () => {
         try {
-            let res = await api.get(`/products/${id}`)
-            console.log(res?.data);
-            
+            let res = await api.get(`/products/${id}`)           
             setProduct(res?.data)
             setLoading(false)
         } catch (error) {
@@ -25,7 +24,31 @@ const ProductDetails = ({Products, wishlist, setwishlist}) => {
             
         }
     }
-    
+     const Addtocart = async (e) => {
+        e.preventDefault()
+        try {
+          await api.put(`products/addtocart/${Product?._id}`)
+        } catch (error) {
+          if (error.response) {
+            console.log(error?.response?.data?.message)
+          } else {
+            alert(error.message)
+          }
+        }
+      }
+      const AddtoWishlist = async (e) => {
+     e.preventDefault()
+    try {
+      if (iswishlist) {
+        setwishlist(prev => prev.filter(item => item._id  !== Product?._id))
+      } else {
+        setwishlist(prev => [...prev, Product])
+      }
+      await api.put(`products/addtowishlist/${Product?._id}`)
+    } catch (error) {
+      console.log(error.response?.data?.message)
+    }
+  }
     useEffect(() => {
         // eslint-disable-next-line react-hooks/set-state-in-effect
         loadProduct()
@@ -60,15 +83,20 @@ const ProductDetails = ({Products, wishlist, setwishlist}) => {
                     )}
                 </div>
                 <div className='flex flex-wrap gap-3 md:gap-5 md:text-[15px] w-full'>
-                    <button className='capitalize text-white bg-blue-500 px-3 py-1.5 md:px-5 md:py-1.5 rounded-md border border-blue-400 hover:bg-transparent flex  hover:text-blue-500 transition-colors gap-0.5 md:gap-2'><ShoppingCart size={19+3} className='mt-0.50'/>Add to cart</button>
-                    <button className='capitalize bg-transparent px-3 py-1.5 md:px-5 md:py-2 rounded-md border text-blue-500 hover:bg-blue-400 hover:text-white transition-colors flex gap-0.5 md:gap-2 '><Heart size={19+3}/>  Wishlist</button>
+                    <button onClick={Addtocart} className='capitalize text-white bg-blue-500 px-3 py-1.5 md:px-5 md:py-1.5 rounded-md border border-blue-400 hover:bg-transparent flex  hover:text-blue-500 transition-colors gap-0.5 md:gap-2'><ShoppingCart size={19+3} className='mt-0.50'/>Add to cart</button>
+                    {iswishlist?(
+
+                        <button onClick={AddtoWishlist} className='capitalize bg-transparent px-3 py-1.5 md:px-5 md:py-2 rounded-md border text-blue-500 hover:bg-blue-400 hover:text-white transition-colors flex gap-0.5 md:gap-2 '><Heart size={19+3} fill='red' stroke='red'/>  Wishlisted</button>
+                    ):(
+                        <button onClick={AddtoWishlist} className='capitalize bg-transparent px-3 py-1.5 md:px-5 md:py-2 rounded-md border text-blue-500 hover:bg-blue-400 hover:text-white transition-colors flex gap-0.5 md:gap-2 '><Heart size={19+3} fill='currentColor' stroke='currentColor'/>  Wishlist</button>
+                    )}
                 </div>
             </div>
             </div>
             <div className='flex flex-col gap-4 md:px-3 py-1'>
                 <div className='flex  flex-col md:flex-row justify-between px-5 pr-15 '>
                 <h1 className=' text-xl md:text-2xl text-zinc-800'>Products related to </h1>
-                <h1 className='text-blue-500 hover:underline transition-colors cursor-pointer pr-10'>View more</h1>
+                <Link to={`/${Product?.category}`} className='text-blue-500 hover:underline transition-colors cursor-pointer pr-10'>View more</Link>
                 </div>
                 <div className='flex flex-row flex-wrap md:gap-10 mb-10'>
                     {RelatedProducts?.map((product) => (

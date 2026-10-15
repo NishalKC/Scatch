@@ -3,7 +3,7 @@ import { Mail, Lock, Eye, EyeOff, ArrowRight } from "lucide-react";
 import api from "../services/Api";
 import { useNavigate } from "react-router-dom";
 
-const Login = ({setIslogin, setUser}) => {
+const Login = ({setIslogin, setUser, setWishlist}) => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -22,6 +22,7 @@ const Login = ({setIslogin, setUser}) => {
         if(res?.data?.user){
           setIslogin(true)
           setUser(res?.data?.user)
+          setWishlist(res?.data?.user?.wishlist)          
           navigate("/")
         }
         
