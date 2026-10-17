@@ -135,3 +135,43 @@ module.exports.AddtoWishlist= async (req, res)=>{
     }
 }
 
+module.exports.DeleteProductByID = async (req, res) => {
+    try{
+        let {id} = req.params
+        await productModel.findOneAndDelete({_id: id})
+        let user = await userModel.findOne({_id: req.user._id})
+        let index = user.products.indexOf(id.toString())
+        if(index !==-1){
+            user.products.splice(index, 1)
+            await user.save()
+        }
+        return res.status(200).json({message: "product delete successfully"})
+    }catch(error){
+        return res.status(500).json({
+            message: error.message
+        })
+    }
+}
+
+module.exports.UpdateProduct = async (req, res ) => {
+    try{
+        let {id}= req.params
+        let {name, price, category, discount ,stock}= req.body
+        let product = await productModel.findOne({_id: id})
+        if(!product) return res.status(404).json({message: "product not found"})
+        product.name = name
+        product.price= price
+        product.category= category
+        product.discount= discount
+        product.stock= stock
+        if(req.file) product.image = req.file.path
+        await product.save()
+
+        return res.status(200).json({
+            message: "product updated successfully",
+            product
+        })
+    }catch(error){
+        return res.status(500).json({message: error.message})
+    }
+}

@@ -1,5 +1,5 @@
 const express = require("express")
-const { createProduct, Getallproducts, GetproductsbyId, GetproductsByCategory, Addtocart, AddtoWishlist } = require("../controllers/productscontroller")
+const { createProduct, Getallproducts, GetproductsbyId, GetproductsByCategory, Addtocart, AddtoWishlist, DeleteProductByID, UpdateProduct } = require("../controllers/productscontroller")
 const protect = require("../middleware/authmiddleware")
 const upload = require("../config/multer")
 const Route = express.Router()
@@ -10,5 +10,7 @@ Route.get("/:id", protect,GetproductsbyId)
 Route.get("/category/:category", protect,GetproductsByCategory)
 Route.put("/addtocart/:id", protect, Addtocart)
 Route.put("/addtowishlist/:id", protect, AddtoWishlist)
+Route.delete("/delete/:id", protect, DeleteProductByID)
+Route.put("/update/:id", protect, upload.single("image"),UpdateProduct)
 
 module.exports= Route

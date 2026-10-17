@@ -18,6 +18,7 @@ import SideBar from "./components/SideBar"
 import WishlistedProducts from "./pages/WishlistedProducts"
 import SearchPage from "./pages/SearchPage"
 import Cart from "./pages/Cart"
+import Update from "./pages/Update"
 
 const App = () => {
   const [User, setUser] = useState(null)
@@ -64,7 +65,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <Navbar user={User} Islogin={Islogin} setSearch={setSearch}/>
-      <div className="flex px-3">
+      <div className="flex">
       <SideBar islogin={Islogin} setIslogin={setIslogin} setWishlist={setWishlist}/>
       <Routes>
         
@@ -72,7 +73,7 @@ const App = () => {
         <Route path="/login" element={<Login setIslogin={setIslogin} setUser={setUser} setWishlist={setWishlist}/>}/>
         <Route path="/register" element={<Register setUser={setUser} setislogin={setIslogin} />}/>
         <Route path="/search" element={<SearchPage search={Search} products={Products} wishlist={Wishlist} setwishlist={setWishlist}/>}/>
-        <Route path="/Shop" element={<Shop products={Products} user={User} wishlist={Wishlist} setwishlist={setWishlist}/>}/>
+        <Route path="/Shop" element={<Shop products={Products}setproducts={setProducts} user={User} wishlist={Wishlist} setwishlist={setWishlist}/>}/>
         <Route path="/profile" element={<Profile  user={User}/>}/>
         <Route path="/create-products" element={<CreateProducts setProducts={setProducts}/>}/>
         <Route path="/products/:id" element={<ProductDetails Products={Products} wishlist={Wishlist} setwishlist={setWishlist}/>} />
@@ -80,7 +81,7 @@ const App = () => {
         <Route path="/shop/offer" element={<OfferProducts Products={Products} wishlist={Wishlist} setwishlist={setWishlist}/>} />
         <Route path="/wishlist" element={<WishlistedProducts Wishlist={Wishlist} setwishlist={setWishlist}/>} />
         <Route path="/cart" element={<Cart Carts={Carts}/>} />
-      
+        <Route path="/update/:id" element={<Update Products={Products} setProducts={setProducts}/>}/>
       </Routes>
       </div>
     </BrowserRouter>

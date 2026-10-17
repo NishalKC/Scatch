@@ -1,10 +1,9 @@
-import { useState, useRef } from 'react' 
+import { useState } from 'react' 
 import api from '../services/Api'
 import { useNavigate } from 'react-router-dom'
 import Form from '../components/Form'
 
 const CreateProducts = ({setProducts}) => {
-    const fileInputRef = useRef(null) 
     const navigation = useNavigate()
     const [Product, setProduct] = useState({
         name: "",
@@ -15,30 +14,7 @@ const CreateProducts = ({setProducts}) => {
         desc: "",
         image: null 
     })
-    const [preview, setPreview] = useState(null) 
-
-    const handleChange = (e) => {
-        setProduct({
-            ...Product,
-            [e.target.name]: e.target.value
-        })
-    }
-
-    const handleFileChange = (e) => {
-        const file = e.target.files[0] 
-        if (file) {
-            setProduct({
-                ...Product,
-                image: file 
-            })
-            setPreview(URL.createObjectURL(file)) 
-        }
-    }
-
-    const triggerFileInput = () => {
-        fileInputRef.current.click()
-    }
-
+   
     const handleSubmit = async (e) => {
         e.preventDefault() 
         
@@ -66,13 +42,10 @@ const CreateProducts = ({setProducts}) => {
     <div className='flex gap-3 md:px-3 '>
   
         <Form Product={Product}
-         handleChange={handleChange} 
          handleSubmit={handleSubmit}
-         triggerFileInput={triggerFileInput}
-         preview={preview}
-         fileInputRef={fileInputRef}
-         handleFileChange={handleFileChange}
+         setProduct={setProduct}
          Action={"Create Products"}
+         image={null}
         />
 
     </div>

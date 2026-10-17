@@ -1,12 +1,12 @@
 import ProductCard from './ProductCard'
 
-const ProductLoader = ({products, setErrormessage, user, wishlist, setwishlist}) => {
+const ProductLoader = ({products, setErrormessage, user, wishlist, setwishlist, setProducts}) => {
   return (
-    <div className="flex fles-row flex-wrap gap-5 w-full md:gap-5 px-1 md:px-5">
+    <div className="flex fles-row flex-wrap gap-3  w-full md:gap-5  md:px-5">
         {products?.length >0 ? (
             <>
             {products?.map((product) => (
-                <ProductCard key={product._id} user={user} setwishlist={setwishlist} wishlist={wishlist} product={product} setErrormessage={setErrormessage} />
+                <ProductCard  key={product._id} user={user} setwishlist={setwishlist} wishlist={wishlist} product={product} setErrormessage={setErrormessage} setProducts={setProducts} />
                 )
             )}
         </>

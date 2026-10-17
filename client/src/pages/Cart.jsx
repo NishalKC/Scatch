@@ -1,32 +1,35 @@
 import { Lock } from "lucide-react";
 import CartProduct from "../components/CartProduct"
+import { useState } from "react";
 
 const Cart = ({Carts}) => {
 
-    const subtotal = Carts.reduce((acc, current) => {
-    return acc + (Number(current.price) || 0);
-  }, 0);
-
-  const totalDiscount = Carts.reduce((acc, current) => {
-    return acc + (Number(current.discount) || 0);
-  }, 0);
+ const [subtotal, setsubtotal] = useState(0)
+ const [totalDiscount, settotalDiscount] = useState(0)
 
   const totalAmount = Math.max(0, subtotal - totalDiscount);
   return (
-    <div className="flex gap-3 p-5 w-full">
-      <div  className="flex flex-col px-3 w-4/6  ">
-        <h1 className="text-2xl">Your carts</h1>
-        <p>{Carts.length} Products in cart</p>
-        <div className="flex-col gap-3 px-3 py-4 w-full bg-white rounded-md">
+    <div className="flex md:max-h-screen  flex-col-reverse md:flex-row gap-10 md:gap-3 p-5 w-full">
+      <div  className="flex flex-col px-3 w-full md:w-4/6  ">
+      <div className=" flex justify-between w-full mb-1">
+        <div className="flex flex-col gap-3">
+          <h1 className="text-2xl">Your carts</h1>
+          <p>{Carts.length} Products in cart</p>
+        </div>
+        <div className="flex self-end">
+            <a href="" className="text-red-500 hover:underline transition-shadow">Delete all</a>
+          </div>
+      </div>
+        <div className="flex-col gap-3 px-3 py-4 w-full bg-white rounded-md h-[80%] overflow-y-auto">
           {Carts.map(Product=>(
             <>
-            <CartProduct Product={Product} />
-            <hr className="mx-5 my-1 text-zinc-400" />
+            <CartProduct Product={Product} setdiscount={settotalDiscount} setsubtotal={setsubtotal} />
+            <hr className="mx-5 my-5 md:my-1 text-zinc-400" />
             </>
           ))}
         </div>
       </div>
-      <div className="flex flex-col gap-4 bg-white w-2/6 rounded-md px-5 py-3">
+      <div className="flex flex-col gap-4 bg-white w-full md:w-2/6 rounded-md px-5 py-3">
           <h1 className="text-[19px] font-semibold">Order summery</h1>
           <div className="flex flex-col gap-1.5  w-full">
             <div className="w-full flex justify-between">
